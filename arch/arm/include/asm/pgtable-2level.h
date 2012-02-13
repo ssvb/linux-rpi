@@ -178,6 +178,9 @@ static inline pmd_t *pmd_offset(pud_t *pud, unsigned long addr)
 #define pmd_addr_end(addr,end) (end)
 
 #define set_pte_ext(ptep,pte,ext) cpu_set_pte_ext(ptep,pte,ext)
+#ifdef CONFIG_ARM_HUGETLB_SUPPORT
+#define set_hugepte_ext(ptep,pte,ext) cpu_set_hugepte_ext(ptep,pte,ext)
+#endif
 
 #endif /* __ASSEMBLY__ */
 
