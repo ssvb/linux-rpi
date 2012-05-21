@@ -202,6 +202,15 @@ extern void *dma_alloc_writecombine(struct device *, size_t, dma_addr_t *,
 #define dma_free_writecombine(dev,size,cpu_addr,handle) \
 	dma_free_coherent(dev,size,cpu_addr,handle)
 
+/**
+ * dma_alloc_writethrough - allocate write-through cached memory for DMA
+ */
+extern void *dma_alloc_writethrough(struct device *, size_t, dma_addr_t *,
+		gfp_t);
+
+#define dma_free_writethrough(dev,size,cpu_addr,handle) \
+	dma_free_coherent(dev,size,cpu_addr,handle)
+
 int dma_mmap_writecombine(struct device *, struct vm_area_struct *,
 		void *, dma_addr_t, size_t);
 

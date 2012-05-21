@@ -35,6 +35,7 @@
 #include <asm/sizes.h>
 #include <linux/io.h>
 #include <linux/dma-mapping.h>
+#include <asm/fb.h>
 
 /* This is limited to 16 characters when displayed by X startup */
 static const char *bcm2708_name = "BCM2708 FB";
@@ -242,7 +243,7 @@ static int bcm2708_fb_set_par(struct fb_info *info)
 		if (fb->fb.screen_base)
 			iounmap(fb->fb.screen_base);
 		fb->fb.screen_base =
-			(void *)ioremap_wc(fb->fb.fix.smem_start, fb->fb.screen_size);
+			(void *)fb_ioremap(fb->fb.fix.smem_start, fb->fb.screen_size);
 		if (!fb->fb.screen_base) {
 			/* the console may currently be locked */
 			console_trylock();

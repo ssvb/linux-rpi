@@ -359,6 +359,14 @@ dma_alloc_writecombine(struct device *dev, size_t size, dma_addr_t *handle, gfp_
 }
 EXPORT_SYMBOL(dma_alloc_writecombine);
 
+void *
+dma_alloc_writethrough(struct device *dev, size_t size, dma_addr_t *handle, gfp_t gfp)
+{
+	return __dma_alloc(dev, size, handle, gfp,
+			   pgprot_writethrough(pgprot_kernel));
+}
+EXPORT_SYMBOL(dma_alloc_writethrough);
+
 static int dma_mmap(struct device *dev, struct vm_area_struct *vma,
 		    void *cpu_addr, dma_addr_t dma_addr, size_t size)
 {
@@ -403,6 +411,14 @@ int dma_mmap_writecombine(struct device *dev, struct vm_area_struct *vma,
 	return dma_mmap(dev, vma, cpu_addr, dma_addr, size);
 }
 EXPORT_SYMBOL(dma_mmap_writecombine);
+
+int dma_mmap_writethrough(struct device *dev, struct vm_area_struct *vma,
+			  void *cpu_addr, dma_addr_t dma_addr, size_t size)
+{
+	vma->vm_page_prot = pgprot_writethrough(vma->vm_page_prot);
+	return dma_mmap(dev, vma, cpu_addr, dma_addr, size);
+}
+EXPORT_SYMBOL(dma_mmap_writethrough);
 
 /*
  * free a page as defined by the above mapping.
