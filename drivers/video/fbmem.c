@@ -45,6 +45,7 @@
 static DEFINE_MUTEX(registration_lock);
 struct fb_info *registered_fb[FB_MAX] __read_mostly;
 int num_registered_fb __read_mostly;
+int enable_cached_fb __read_mostly;
 
 static struct fb_info *get_fb_info(unsigned int idx)
 {
@@ -1950,6 +1951,14 @@ static int __init video_setup(char *options)
 	return 1;
 }
 __setup("video=", video_setup);
+
+static int __init enable_cached_fb_setup(char *str)
+{
+	if (str)
+		sscanf(str, "%d", &enable_cached_fb);
+	return 1;
+}
+__setup("enable_cached_fb=", enable_cached_fb_setup);
 #endif
 
     /*
@@ -1967,5 +1976,6 @@ EXPORT_SYMBOL(fb_pan_display);
 EXPORT_SYMBOL(fb_get_buffer_offset);
 EXPORT_SYMBOL(fb_set_suspend);
 EXPORT_SYMBOL(fb_get_options);
+EXPORT_SYMBOL(enable_cached_fb);
 
 MODULE_LICENSE("GPL");

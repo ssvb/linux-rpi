@@ -214,7 +214,7 @@ static struct mem_type mem_types[] = {
 	[MT_DEVICE_CACHED] = {	  /* ioremap_cached */
 		.prot_pte	= PROT_PTE_DEVICE | L_PTE_MT_DEV_CACHED,
 		.prot_l1	= PMD_TYPE_TABLE,
-		.prot_sect	= PROT_SECT_DEVICE | PMD_SECT_WB,
+		.prot_sect	= PROT_SECT_DEVICE | PMD_SECT_WT,
 		.domain		= DOMAIN_IO,
 	},	
 	[MT_DEVICE_WC] = {	/* ioremap_wc */

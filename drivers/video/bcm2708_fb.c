@@ -35,6 +35,7 @@
 #include <asm/sizes.h>
 #include <linux/io.h>
 #include <linux/dma-mapping.h>
+#include <asm/fb.h>
 
 #ifdef BCM2708_FB_DEBUG
 #define print_debug(fmt,...) pr_debug("%s:%s:%d: "fmt, MODULE_NAME, __func__, __LINE__, ##__VA_ARGS__)
@@ -246,7 +247,7 @@ static int bcm2708_fb_set_par(struct fb_info *info)
 		if (fb->fb.screen_base)
 			iounmap(fb->fb.screen_base);
 		fb->fb.screen_base =
-			(void *)ioremap_wc(fb->fb.fix.smem_start, fb->fb.screen_size);
+			(void *)fb_ioremap(fb->fb.fix.smem_start, fb->fb.screen_size);
 		if (!fb->fb.screen_base) {
 			/* the console may currently be locked */
 			console_trylock();
