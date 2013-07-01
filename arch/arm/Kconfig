@@ -1044,8 +1044,8 @@ config SYS_SUPPORTS_HUGETLBFS
 		def_bool n
 
 config ARM_HUGETLB_SUPPORT
-	bool "Support HUGETLB for ARMv7 (EXPERIMENTAL)"
-	depends on CPU_V7 && EXPERIMENTAL
+	bool "Support HUGETLB for ARMv6 (EXPERIMENTAL)"
+	depends on CPU_V6 && EXPERIMENTAL
 	select SYS_SUPPORTS_HUGETLBFS
 	select HUGETLBFS
 	default y
